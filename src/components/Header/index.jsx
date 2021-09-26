@@ -55,10 +55,11 @@ class Header extends Component {
 
 const HeaderStyle = styled.div`
   background-color: #023031;
-  box-sizing: border-box;
+  box-shadow: 3px 3px 10px 2px rgba(0, 0, 0, 0.3);
 
   .logo-user {
     display: flex;
+    padding-bottom: 1rem;
     align-items: center;
     justify-content: space-between;
     margin: 0 3rem;
