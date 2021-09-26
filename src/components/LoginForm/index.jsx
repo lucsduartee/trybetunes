@@ -48,7 +48,7 @@ class LoginForm extends Component {
     if (isLoading) return <Loading />;
     return (
       <Form>
-        <form className="form">
+        <form autoComplete="off" className="form">
           <label htmlFor="inp-name">
             <input
               className="inp"
