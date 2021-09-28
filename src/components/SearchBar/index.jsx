@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import searchAlbumsAPI from '../../services/searchAlbumsAPI';
 import Album from '../Album';
 import Loading from '../Loading';
@@ -39,17 +40,21 @@ class SearchBar extends Component {
 
   mapAlbums = (albums, name) => {
     const isValid = albums.length > 0;
-    if (!isValid) return <p>Nenhum álbum foi encontrado</p>;
+    if (!isValid) {
+      return <p className="msg-result not-found">Nenhum álbum foi encontrado</p>;
+    }
     return (
-      <>
-        <p>
+      <section className="albums-div">
+        <p className="msg-result">
           Resultado de álbuns de:
           {` ${name}`}
         </p>
-        {albums.map((album) => (
-          <Album key={ album.collectionId } album={ album } />
-        ))}
-      </>
+        <div className="album-card">
+          {albums.map((album) => (
+            <Album key={ album.collectionId } album={ album } />
+          ))}
+        </div>
+      </section>
     );
   };
 
@@ -59,19 +64,45 @@ class SearchBar extends Component {
     } = this;
     const isDisabled = searchedName.length >= 2;
     return (
-      <>
+      <SearchBarStyles>
         <SearchForm
           searchedName={ searchedName }
           onHandleChange={ this.handleChange }
           isDisabled={ isDisabled }
           onHandleClick={ this.handleClick }
         />
-        <section>
-          {isLoading ? <Loading /> : this.mapAlbums(albums, name)}
-        </section>
-      </>
+        {isLoading ? <Loading /> : this.mapAlbums(albums, name)}
+      </SearchBarStyles>
     );
   }
 }
+
+const SearchBarStyles = styled.div`
+  .albums-div {
+    display: flex;
+    width: 70%;
+    height: 100vh;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin: 0 auto;
+  }
+
+  .msg-result {
+    display: block;
+    color: #001813;
+    font-size: 1.75rem;
+    font-family: 'Epilogue', sans-serif;
+  }
+
+  .album-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .not-found {
+    margin: 0 250px;
+  }
+`;
 
 export default SearchBar;
