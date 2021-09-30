@@ -7,7 +7,7 @@ class SearchForm extends Component {
     const { searchedName, onHandleChange, isDisabled, onHandleClick } = this.props;
     return (
       <SearchFormStyles>
-        <form>
+        <form autoComplete="off">
           <div className="input-icon">
             <input
               type="text"
